@@ -12,21 +12,21 @@ public class WeatherMenu {
 	private WeatherService service;
 	private ArrayList<Weather> aw;
 	private WeatherView view;
-	
+
 	public WeatherMenu() {
 		this.choice = 0;
 		this.sc = new Scanner(System.in);
 		this.weather = new Weather();
-		this.check=true;
-		this.service= new WeatherService();
+		this.check = true;
+		this.service = new WeatherService();
 		this.aw = new ArrayList<Weather>();
-		this.view = new WeatherView(); 
-		
+		this.view = new WeatherView();
+
 	}
-	
+
 	public void start() {
-while (this.check) {
-			
+		while (this.check) {
+
 			System.out.println("1.날씨정보 초기화");
 			System.out.println("2.날씨정보 추가");
 			System.out.println("3.전체정보 출력");
@@ -35,27 +35,26 @@ while (this.check) {
 			System.out.println("6.프로그램종료");
 			System.out.println("원하는 메뉴의 번호를 입력하세요");
 			this.choice = sc.nextInt();
-			
+
 			switch (this.choice) {
 			case 1:
 				this.service.init(this.aw);
 				break;
-				
-			case 2 :
-				
-				
+
+			case 2:
+
 				break;
-				
+
 			case 3:
 				this.view.view(aw);
 				break;
-			case 4 :
-				
+			case 4:
+
 				break;
 			case 5:
-				
+
 				break;
-			case 6: 
+			case 6:
 				System.out.println("프로그램종료");
 				check = !check;
 				break;
@@ -64,12 +63,9 @@ while (this.check) {
 				System.out.println("다시 입력하세요");
 				break;
 			}
-			
-			
+
 		}
-		
-		
-		
+
 	}
 
 }

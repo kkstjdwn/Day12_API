@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -18,39 +19,52 @@ public class WeatherService {
 	private StringBuffer sb;
 	private StringTokenizer st;
 	private Weather weather;
-	
+
 
 	public void init(ArrayList<Weather> aw) {
+		this.f = new File("c:\\test\\sub1", "weatherInfo.txt");
+		System.out.println("존재여부 : " + f.exists());
 		try {
-			this.f = new File("c:\\test\\sub1", "weatherInfo.txt");
 			this.fr = new FileReader(f);
 			this.br = new BufferedReader(fr);
-			this.sb = new StringBuffer();
-			aw = new ArrayList<Weather>();
 
-			while (check) {
-				this.wi = String.valueOf(br.readLine());
-				if (wi == null) {
-					break;
-				}
-				this.sb.append(wi.replaceAll(" ", ""));
-			}
-			this.st = new StringTokenizer(sb.toString(), ",");
-			while (st.hasMoreTokens()) {
+			while ((this.wi = br.readLine()) != null) {
+				 this.st = new StringTokenizer(wi, ",");
+				 
+//				String[] sa = this.wi.split(",");
+//				this.weather.setCity(sa[0].trim());
+//				this.weather.setGion(Double.parseDouble(sa[1].trim()));
+//				this.weather.setSpdo(Integer.parseInt(sa[2].trim()));
+//				this.weather.setStatus(sa[3].trim());
+
 				this.weather = new Weather();
-				this.weather.setCity(st.nextToken());
-				this.weather.setGion(Double.parseDouble(st.nextToken()));
-				this.weather.setSpdo(Integer.parseInt(st.nextToken()));
-				this.weather.setStatus(st.nextToken());
+				this.weather.setCity(st.nextToken().trim());
+				this.weather.setGion(Double.parseDouble(st.nextToken().trim()));
+				this.weather.setSpdo(Integer.parseInt(st.nextToken().trim()));
+				this.weather.setStatus(st.nextToken().trim());
+
 				aw.add(weather);
+				// NumberFormatException
 
 			}
 
 		} catch (Exception e) {
-			
 			e.printStackTrace();
 		}
+		finally {
+			
+			try {
+				this.br.close();
+				this.fr.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
 
+		System.out.println("입력완료");
 	}
 
 }
